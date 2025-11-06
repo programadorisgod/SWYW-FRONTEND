@@ -14,7 +14,12 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
-
+    "esModuleInterop": true,
+    "allowJs": true,
+    "isolatedModules": true,
+    "paths": {
+      "test-utils": ["./utils/test-utils"]
+    },
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
