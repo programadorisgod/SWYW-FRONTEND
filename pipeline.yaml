@@ -1,0 +1,30 @@
+trigger:
+  - master
+
+pool:
+  name: swyw-agent-pool
+
+stages:
+  - stage: Build
+    displayName: "Build Stage"
+    jobs:
+      - job: BuildJob
+        displayName: "Build Job"
+        steps:
+          - task: Docker@2
+            displayName: "Build and Push Docker Image"
+            inputs:
+              containerRegistry: "Docker_hub"
+              repository: "camilodevp/swyw-frontend"
+              command: "build"
+              Dockerfile: "**/Dockerfile"
+              tags: |
+                0.0.1
+          - task: Bash@3
+            displayName: "Display Image Info"
+            inputs:
+              targetType: "inline"
+              script: |
+                docker stop swyw-frontend || true
+                docker rm swyw-frontend || true
+                docker run -d --name swyw-frontend -p 80:80 camilodevp/swyw-frontend:0.0.1
