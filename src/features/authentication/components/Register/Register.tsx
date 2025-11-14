@@ -22,8 +22,10 @@ export default function Register() {
       formData.email,
       formData.password,
     );
-    if (response !== "Registration successful")
-      return alert("Ocurrió un error, intente de nuevo");
+    if (response !== "Registro exitoso") {
+      return alert(response || "Ocurrió un error, intente de nuevo");
+    }
+    alert("¡Cuenta creada exitosamente! Ahora inicia sesión.");
     navigate("/login");
   };
 
