@@ -21,10 +21,21 @@ export default function Login({ onLogin }: LoginProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const response = await login(formData.email, formData.password);
-    if (response == "Login failed")
-      return alert("Ocurrió un error, intente de nuevo");
+    
+    // Verificar si la respuesta es una cadena (error)
+    if (typeof response === "string") {
+      return alert(response);
+    }
+    
+    // Si no es string, es un Usuario (User object)
+    if (!response.id) {
+      return alert("No se obtuvo el ID del usuario. Intenta de nuevo.");
+    }
+    
+    // Guardar usuario en localStorage
+    localStorage.setItem("user", JSON.stringify(response));
     onLogin();
-    navigate("/", { state: { user: response } });
+    navigate("/");
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

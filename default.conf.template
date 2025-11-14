@@ -1,0 +1,28 @@
+server {
+    listen       80;
+    server_name  localhost;
+
+    root   /usr/share/nginx/html;
+    server_tokens off;
+    index index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.html?$args;
+    }
+
+    location ~ \.js {
+        add_header  Content-Type   text/javascript;
+    }
+
+    location /api/auth/ {
+        proxy_pass ${VITE_API_AUTH};
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    location /api/notes/ {
+        proxy_pass ${VITE_API_NOTES};
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}

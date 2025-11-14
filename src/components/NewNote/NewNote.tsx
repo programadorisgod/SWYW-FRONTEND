@@ -9,6 +9,7 @@ import { EventCheckIcon } from "../icons/EventCheck";
 import "./NewNote.css";
 import { EventIcon } from "../icons/Event";
 import { v4 as uuidv4 } from "uuid";
+import { Loader } from "../Loader/Loader";
 
 interface HandleModalProps {
   note?: Note;
@@ -34,6 +35,7 @@ export function NewNote({
       participants: [],
     },
   );
+  const [isLoading, setIsLoading] = useState(false);
   const formIcon =
     mode === "view" ? (
       <EditIcon className="new-note-edit-icon" />
@@ -51,37 +53,45 @@ export function NewNote({
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     let response = "";
-    switch (mode) {
-      case "view":
-        toggleNewNote("edit", newNote);
-        break;
-      case "create":
-        const eventNote = {
-          message: newNote.title + " - " + newNote.description,
-          type: newNote.type,
-          remember: newNote.remember,
-        };
-        response = await createNote(eventNote);
-        if (response === "Error creating note") {
-          alert("Error al crear la nota. Por favor, inténtalo de nuevo.");
-          return;
-        }
-        handleNewNote(newNote);
-        toggleNewNote();
-        break;
-      case "edit":
-        response = await editNote(newNote);
-        if (response === "Error editing note") {
-          alert("Error al editar la nota. Por favor, inténtalo de nuevo.");
-          return;
-        }
-        handleNewNote(newNote);
-        toggleNewNote();
-        break;
-      default:
-        break;
+    
+    try {
+      setIsLoading(true);
+      
+      switch (mode) {
+        case "view":
+          toggleNewNote("edit", newNote);
+          break;
+        case "create":
+          const eventNote = {
+            message: newNote.title + " - " + newNote.description,
+            typeEvent: newNote.type,
+            remember: newNote.remember,
+            userId: "0", // Será reemplazado por el userId del localStorage en createNote
+          };
+          response = await createNote(eventNote);
+          if (response === "Error creating note") {
+            alert("Error al crear la nota. Por favor, inténtalo de nuevo.");
+            return;
+          }
+          handleNewNote(newNote);
+          toggleNewNote();
+          break;
+        case "edit":
+          response = await editNote(newNote);
+          if (response === "Error editing note") {
+            alert("Error al editar la nota. Por favor, inténtalo de nuevo.");
+            return;
+          }
+          handleNewNote(newNote);
+          toggleNewNote();
+          break;
+        default:
+          break;
+      }
+      event.currentTarget.reset();
+    } finally {
+      setIsLoading(false);
     }
-    event.currentTarget.reset();
   }
 
   return (
@@ -91,7 +101,7 @@ export function NewNote({
           <input
             type="text"
             name="title"
-            placeholder="Título"
+            placeholder="Título de tu nota..."
             value={newNote.title}
             onChange={(e) =>
               setNewNote({
@@ -99,16 +109,16 @@ export function NewNote({
                 title: e.target.value,
               })
             }
-            disabled={disabled}
+            disabled={disabled || isLoading}
             required
           />
           <CloseIcon
             className="new-note-close-icon"
-            onClick={() => toggleNewNote("create")}
+            onClick={() => !isLoading && toggleNewNote("create")}
           />
           <textarea
             name="description"
-            placeholder="Descripción"
+            placeholder="Describe los detalles de tu nota..."
             value={newNote.description}
             onInput={(e) => {
               const target = e.currentTarget;
@@ -121,7 +131,7 @@ export function NewNote({
                 description: e.target.value,
               })
             }
-            disabled={disabled}
+            disabled={disabled || isLoading}
             required
           ></textarea>
           <div>
@@ -132,7 +142,7 @@ export function NewNote({
                   name="type"
                   value={"urgent"}
                   checked={newNote.type === "urgent"}
-                  disabled={disabled}
+                  disabled={disabled || isLoading}
                   onChange={() =>
                     setNewNote({
                       ...newNote,
@@ -140,7 +150,7 @@ export function NewNote({
                     })
                   }
                 />
-                Importante
+                <span>Importante</span>
               </label>
               <label>
                 <input
@@ -148,10 +158,10 @@ export function NewNote({
                   name="type"
                   value={"normal"}
                   checked={newNote.type === "normal"}
-                  disabled={disabled}
+                  disabled={disabled || isLoading}
                   onChange={() => setNewNote({ ...newNote, type: "normal" })}
                 />
-                Normal
+                <span>Normal</span>
               </label>
               <label>
                 <input
@@ -159,10 +169,12 @@ export function NewNote({
                   name="type"
                   value={"recurring"}
                   checked={newNote.type === "recurring"}
-                  disabled={disabled}
-                  onChange={() => setNewNote({ ...newNote, type: "recurring" })}
+                  disabled={disabled || isLoading}
+                  onChange={() =>
+                    setNewNote({ ...newNote, type: "recurring" })
+                  }
                 />
-                Recurrente
+                <span>Recurrente</span>
               </label>
               <button
                 type="button"
@@ -173,13 +185,25 @@ export function NewNote({
                   })
                 }
                 className="form-event-button"
-                disabled={disabled}
+                disabled={disabled || isLoading}
+                title={newNote.remember ? "Recordatorio activo" : "Activar recordatorio"}
               >
                 {eventIcon}
               </button>
             </fieldset>
-            <button className="form-submit-button" type="submit">
-              {formIcon}
+            <button
+              className="form-submit-button"
+              type="submit"
+              disabled={isLoading || !newNote.title || !newNote.description}
+            >
+              {isLoading ? (
+                <Loader size="sm" variant="spinner" />
+              ) : (
+                <>
+                  {formIcon}
+                  <span>{mode === "view" ? "Editar" : "Crear"}</span>
+                </>
+              )}
             </button>
           </div>
         </form>

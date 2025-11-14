@@ -1,0 +1,153 @@
+/**
+ * CSS Color Palette Reference
+ * Generated from Kigen.design - Dodger Blue Theme
+ */
+
+:root {
+  /* ==================== 
+     DODGER BLUE PALETTE
+     ==================== */
+  
+  --dodger-blue-50:   #ecf1fd;   /* Very Light (Backgrounds) */
+  --dodger-blue-100:  #d4dffb;   /* Extra Light */
+  --dodger-blue-200:  #adc4f9;   /* Light (Borders) */
+  --dodger-blue-300:  #86adf6;   /* Light-Medium (Hover) */
+  --dodger-blue-400:  #5b98f3;   /* Medium-Light */
+  --dodger-blue-500:  #3584e4;   /* Primary (Main Brand Color) ⭐ */
+  --dodger-blue-600:  #2c71c4;   /* Medium-Dark (Hover State) */
+  --dodger-blue-700:  #205799;   /* Dark (Active State) */
+  --dodger-blue-800:  #143b6b;   /* Extra Dark */
+  --dodger-blue-900:  #071f3d;   /* Very Dark */
+  --dodger-blue-950:  #031125;   /* Almost Black */
+
+  /* ==================== 
+     BACKGROUND COLORS
+     ==================== */
+  
+  --bg-primary:       #0f1117;   /* Main background (dark) */
+  --bg-secondary:     #161b22;   /* Secondary background */
+  --bg-tertiary:      #21262d;   /* Tertiary background */
+  
+  --bg-light-primary: #ffffff;   /* Light mode main */
+  --bg-light-secondary: #f6f8fa; /* Light mode secondary */
+  --bg-light-tertiary:  #eaeef2; /* Light mode tertiary */
+
+  /* ==================== 
+     TEXT COLORS
+     ==================== */
+  
+  --text-primary:     #c9d1d9;   /* Main text (dark mode) */
+  --text-secondary:   #8b949e;   /* Secondary text (dark mode) */
+  --text-light-primary:   #24292f;  /* Main text (light mode) */
+  --text-light-secondary: #57606a;  /* Secondary text (light mode) */
+
+  /* ==================== 
+     BORDER COLORS
+     ==================== */
+  
+  --border-color:         #30363d;  /* Border (dark mode) */
+  --border-light-color:   #d0d7de;  /* Border (light mode) */
+
+  /* ==================== 
+     STATUS COLORS (RGB)
+     ==================== */
+  
+  --color-urgent:      220, 38, 38;      /* Red for urgent */
+  --color-normal:      16, 185, 129;     /* Green for normal */
+  --color-recurring:   245, 158, 11;     /* Amber for recurring */
+
+  /* ==================== 
+     SHADOWS
+     ==================== */
+  
+  --shadow-sm: 
+    0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  
+  --shadow-md: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  
+  --shadow-lg: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  --shadow-xl: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* ==================== 
+     TRANSITIONS
+     ==================== */
+  
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== 
+   COLOR USAGE GUIDE
+   ==================== */
+
+/*
+PRIMARY INTERACTIONS:
+- Buttons: --dodger-blue-500
+- Button Hover: --dodger-blue-600
+- Button Active: --dodger-blue-700
+- Links: --dodger-blue-500
+- Focus Ring: --dodger-blue-500
+
+BORDERS:
+- Dark mode: --border-color
+- Light mode: --border-light-color
+- Accent borders: --dodger-blue-300
+
+BACKGROUNDS:
+- Dark cards: --bg-secondary
+- Light cards: --bg-light-primary
+- Hover states: --dodger-blue-50 or --bg-tertiary
+
+TEXT:
+- Primary: --text-primary (dark) / --text-light-primary (light)
+- Secondary: --text-secondary (dark) / --text-light-secondary (light)
+- Muted: --text-secondary with reduced opacity
+
+GRADIENTS:
+- Header: linear-gradient(135deg, #3584e4, #2c71c4)
+- Button: linear-gradient(135deg, #3584e4, #2c71c4)
+- Accent: linear-gradient(135deg, #5b98f3, #3584e4)
+
+STATUS ICONS:
+- Urgent (Red): rgba(220, 38, 38, ...) 
+- Normal (Green): rgba(16, 185, 129, ...)
+- Recurring (Amber): rgba(245, 158, 11, ...)
+*/
+
+/* ==================== 
+   COMPONENT EXAMPLES
+   ==================== */
+
+/*
+BUTTON PRIMARY:
+background: linear-gradient(135deg, var(--dodger-blue-500) 0%, var(--dodger-blue-600) 100%);
+color: white;
+border: none;
+border-radius: 8px;
+box-shadow: 0 2px 8px rgba(53, 132, 228, 0.3);
+
+CARD/SURFACE:
+background-color: var(--bg-secondary);
+border: 1px solid var(--border-color);
+border-radius: 12px;
+box-shadow: var(--shadow-md);
+
+INPUT/TEXTAREA:
+background-color: var(--bg-primary);
+border: 1px solid var(--border-color);
+color: var(--text-primary);
+border-radius: 8px;
+
+HOVER STATE:
+background-color: var(--bg-tertiary);
+border-color: var(--dodger-blue-500);
+transition: all var(--transition-fast);
+*/

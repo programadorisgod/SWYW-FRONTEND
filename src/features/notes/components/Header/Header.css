@@ -1,19 +1,40 @@
 .app-header {
-  background-color: var(--color-primary);
-  padding: 1.3em 2em;
+  background: linear-gradient(135deg, var(--dodger-blue-500) 0%, var(--dodger-blue-600) 100%);
+  padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: var(--shadow-md);
+  border-bottom: 1px solid rgba(53, 132, 228, 0.2);
 
   h1 {
     margin: 0;
-    padding-bottom: 5px;
+    padding: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.5px;
   }
 
   img {
-    width: 2.5em;
-    height: 2.5em;
+    width: 2.75rem;
+    height: 2.75rem;
     object-fit: cover;
     cursor: pointer;
+    border-radius: 8px;
+    transition: all var(--transition-fast);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 0.25rem;
+    background-color: rgba(255, 255, 255, 0.1);
+
+    &:hover {
+      transform: scale(1.05) rotate(5deg);
+      border-color: rgba(255, 255, 255, 0.4);
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
   }
 }

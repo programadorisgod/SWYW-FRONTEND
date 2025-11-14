@@ -1,18 +1,17 @@
-import axios from "axios";
+import { api } from "../../../api";
 import type { Note } from "../types";
 
 export async function editNote(note: Note): Promise<string> {
-  return "Note edited successfully";
   try {
-    const result = await axios.put(
-      `${import.meta.env.VITE_API_NOTES}/events/${note.id}`,
-      note,
-    );
-    if (result.status === 200) {
-      return "Note edited successfully";
+    // El endpoint del backend es /api/notes/:id (PUT)
+    const data = await api.put(`/api/notes/notes/${note.id}`, note);
+    // El backend responde con el evento editado o un mensaje
+    if (data && data.id) {
+      return "Nota editada correctamente";
     }
+    return "No se pudo editar la nota";
   } catch (error) {
-    console.error("Error editing note:", error);
+    console.error("Error editando nota:", error);
+    return "Error editando nota";
   }
-  return "Error editing note";
 }

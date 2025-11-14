@@ -14,8 +14,10 @@ export default function App() {
 
   useEffect(() => {
     async function fetchNotes() {
-      const notes = await getNotes();
-
+      const userStr = localStorage.getItem("user");
+      if (!userStr) return;
+      const user = JSON.parse(userStr);
+      const notes = await getNotes(user.id);
       setNotes(
         notes.sort((a, b) => {
           const order = priorityOrder[a.type] - priorityOrder[b.type];
@@ -24,7 +26,6 @@ export default function App() {
         }),
       );
     }
-
     fetchNotes();
   }, []);
 

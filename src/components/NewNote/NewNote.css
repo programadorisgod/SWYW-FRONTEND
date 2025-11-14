@@ -1,166 +1,309 @@
 .new-note-container {
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(15, 17, 23, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  animation: fadeIn var(--transition-base);
 }
 
 .new-note {
-  color: var(--color-primary);
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
+  color: var(--text-light-primary);
+  background-color: var(--bg-light-primary);
+  border-radius: 12px;
+  border: 1px solid var(--border-light-color);
+  box-shadow: var(--shadow-xl);
+  animation: slideUp var(--transition-base);
+  overflow: hidden;
+  width: 100%;
+  max-width: 750px;
+}
 
-  form {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
+.new-note form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+}
 
-    input[type="text"] {
-      position: absolute;
-      box-sizing: border-box;
-      width: 100%;
-      font-size: 1.2em;
-      padding: 0.5em;
-      padding-bottom: 0.6em;
-      border: none;
-      border-bottom: 1px solid var(--color-secondary);
-      background-color: transparent;
+.new-note form input[type="text"] {
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 1rem 1.2rem;
+  padding-bottom: 0.8rem;
+  border: none;
+  border-bottom: 2px solid var(--dodger-blue-200);
+  background-color: transparent;
+  color: var(--text-light-primary);
+  transition: border-color var(--transition-base);
+}
 
-      &:focus {
-        outline: none;
-      }
-    }
+.new-note form input[type="text"]::placeholder {
+  color: var(--text-light-secondary);
+}
 
-    .new-note-close-icon {
-      position: absolute;
-      right: 0;
-      width: 18px;
-      height: 18px;
-      padding: 14px;
-      cursor: pointer;
-      opacity: 0.6;
-      transition: opacity 0.2s;
+.new-note form input[type="text"]:focus {
+  outline: none;
+  border-bottom-color: var(--dodger-blue-500);
+}
 
-      &:hover {
-        opacity: 1;
-      }
-    }
+.new-note form input[type="text"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-    textarea {
-      resize: both;
-      min-width: 420px;
-      max-width: 600px;
-      min-height: 200px;
-      max-height: 450px;
-      font-size: 1.1em;
-      padding: 0em 1.2em 4.5em 1.2em;
-      margin-top: 4em;
-      border: none;
-      background-color: transparent;
-      overflow: hidden;
+.new-note-close-icon {
+  position: absolute;
+  right: 1rem;
+  top: 1.2rem;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all var(--transition-fast);
+  color: var(--text-light-secondary);
+}
 
-      &:focus {
-        outline: none;
-      }
-    }
+.new-note-close-icon:hover {
+  opacity: 1;
+  color: var(--text-light-primary);
+  transform: scale(1.1);
+}
 
-    div {
-      width: 97%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: absolute;
-      padding-bottom: 4px;
-      bottom: 0;
+.new-note form textarea {
+  resize: none;
+  width: 100%;
+  min-height: 220px;
+  max-height: 500px;
+  font-size: 1rem;
+  font-family: inherit;
+  padding: 1rem 1.2rem 7rem 1.2rem;
+  margin-top: 4.5rem;
+  border: none;
+  background-color: transparent;
+  color: var(--text-light-primary);
+  overflow: hidden;
+  transition: color var(--transition-base);
+  box-sizing: border-box;
+}
 
-      fieldset {
-        position: relative;
-        border: none;
-        display: flex;
-        gap: 0.5em;
-        padding-right: 35px;
-      }
+.new-note form textarea::placeholder {
+  color: var(--text-light-secondary);
+}
 
-      label {
-        display: flex;
-        font-weight: 500;
-        padding-bottom: 4px;
-        padding-right: 6px;
-        border-radius: 12px;
-      }
+.new-note form textarea:focus {
+  outline: none;
+}
 
-      label:nth-child(1) {
-        background-color: rgba(var(--color-urgent), 0.35);
-      }
-      label:nth-child(2) {
-        background-color: rgba(var(--color-normal), 0.35);
-      }
-      label:nth-child(3) {
-        background-color: rgba(var(--color-recurring), 0.35);
-      }
+.new-note form textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-      .form-event-button {
-        position: absolute;
-        top: 5px;
-        right: 0;
-        padding: 0 2px;
-        border: none;
-        border-radius: 6px;
-        background: rgba(255, 105, 180, 0.5);
-        cursor: pointer;
 
-        &:hover {
-          background: rgba(255, 105, 180, 0.65);
-        }
-      }
+.new-note form div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  padding: 1rem 1.2rem;
+  gap: 1rem;
+  bottom: 0;
+  border-top: 1px solid var(--border-light-color);
+  background-color: var(--bg-light-secondary);
+  min-height: 70px;
+}
 
-      .form-submit-button {
-        font: 1.2em sans-serif;
-        width: 2.4em;
-        height: 2.4em;
-        background-color: rgba(255, 255, 255, 0.5);
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        line-height: 1;
-        margin-bottom: 2px;
+.new-note form div fieldset {
+  position: relative;
+  border: none;
+  display: flex;
+  gap: 0.75rem;
+  padding: 0;
+  margin: 0;
+}
 
-        .new-note-check-icon path {
-          stroke: rgba(0, 0, 0, 0.7);
-        }
+.new-note form div label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background-color: var(--bg-light-tertiary);
+  border: 1px solid transparent;
+  height: 44px;
+  white-space: nowrap;
+}
 
-        .new-note-edit-icon {
-          fill: rgba(0, 0, 0, 0.7);
-        }
+.new-note form div label input[type="radio"] {
+  cursor: pointer;
+  accent-color: var(--dodger-blue-500);
+}
 
-        &:hover {
-          background-color: rgba(255, 255, 255, 0.4);
+.new-note form div label span {
+  color: var(--text-light-primary);
+}
 
-          .new-note-check-icon path {
-            stroke: rgba(0, 0, 0, 0.8);
-          }
-          .new-note-edit-icon {
-            fill: rgba(0, 0, 0, 0.8);
-          }
-        }
-      }
-    }
-  }
+.new-note form div label:hover {
+  background-color: var(--dodger-blue-50);
+  border-color: var(--dodger-blue-200);
+}
+
+.new-note form div label:nth-child(1) {
+  background-color: rgba(220, 38, 38, 0.08);
+  border-color: rgba(220, 38, 38, 0.2);
+}
+
+.new-note form div label:nth-child(1):hover {
+  background-color: rgba(220, 38, 38, 0.12);
+}
+
+.new-note form div label:nth-child(2) {
+  background-color: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.new-note form div label:nth-child(2):hover {
+  background-color: rgba(16, 185, 129, 0.12);
+}
+
+.new-note form div label:nth-child(3) {
+  background-color: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.new-note form div label:nth-child(3):hover {
+  background-color: rgba(245, 158, 11, 0.12);
+}
+
+.form-event-button {
+  padding: 0;
+  border: 1px solid rgba(255, 105, 180, 0.2);
+  border-radius: 8px;
+  background-color: rgba(255, 105, 180, 0.12);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light-secondary);
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.form-event-button:hover:not(:disabled) {
+  background-color: rgba(255, 105, 180, 0.18);
+  border-color: rgba(255, 105, 180, 0.3);
+  color: var(--text-light-primary);
+}
+
+.form-event-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  height: 44px;
+  background-color: var(--dodger-blue-500);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(53, 132, 228, 0.3);
+  line-height: 1;
+  margin-left: auto;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.form-submit-button:hover:not(:disabled) {
+  background-color: var(--dodger-blue-600);
+  box-shadow: 0 4px 12px rgba(53, 132, 228, 0.4);
+  transform: translateY(-2px);
+}
+
+.form-submit-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.form-submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.form-submit-button .new-note-check-icon path {
+  stroke: white;
+}
+
+.form-submit-button .new-note-edit-icon {
+  fill: white;
 }
 
 .new-note form:has(input[value="urgent"]:checked) {
-  background-color: rgba(var(--color-urgent), 0.5);
+  --form-highlight: rgba(220, 38, 38, 0.1);
 }
 
 .new-note form:has(input[value="normal"]:checked) {
-  background-color: rgba(var(--color-normal), 0.5);
+  --form-highlight: rgba(16, 185, 129, 0.1);
 }
 
 .new-note form:has(input[value="recurring"]:checked) {
-  background-color: rgba(var(--color-recurring), 0.6);
+  --form-highlight: rgba(245, 158, 11, 0.1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .new-note {
+    margin: 1rem;
+    max-width: calc(100vw - 2rem);
+  }
+
+  .new-note form textarea {
+    min-width: 100%;
+    max-width: 100%;
+  }
 }

@@ -1,36 +1,94 @@
+/* CSS Variables generated from Kigen.design - Dodger Blue Palette */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --color-bg: #222831;
-  --color-primary: #393e46;
-  --color-secondary: #948979;
-  --color-accent: #f6efd2;
+  /* Font */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Dodger Blue Palette */
+  --dodger-blue-50: #ecf1fd;
+  --dodger-blue-100: #d4dffb;
+  --dodger-blue-200: #adc4f9;
+  --dodger-blue-300: #86adf6;
+  --dodger-blue-400: #5b98f3;
+  --dodger-blue-500: #3584e4;
+  --dodger-blue-600: #2c71c4;
+  --dodger-blue-700: #205799;
+  --dodger-blue-800: #143b6b;
+  --dodger-blue-900: #071f3d;
+  --dodger-blue-950: #031125;
+
+  /* Dark Background */
+  --bg-primary: #0f1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #21262d;
+
+  /* Light Background */
+  --bg-light-primary: #ffffff;
+  --bg-light-secondary: #f6f8fa;
+  --bg-light-tertiary: #eaeef2;
+
+  /* Text Colors */
+  --text-primary: #c9d1d9;
+  --text-secondary: #8b949e;
+  --text-light-primary: #24292f;
+  --text-light-secondary: #57606a;
+
+  /* Border Colors */
+  --border-color: #30363d;
+  --border-light-color: #d0d7de;
+
+  /* Status Colors */
   --color-urgent: 220, 38, 38;
   --color-normal: 16, 185, 129;
   --color-recurring: 245, 158, 11;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
 }
 
 body {
   margin: 0;
-  width: 100vw;
-  min-width: 1015px;
-  height: 100vh;
-  background-color: var(--color-bg);
-  color: var(--color-accent);
+  padding: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden;
 }
 
 .urgent {
   --note-color: var(--color-urgent);
 }
+
 .normal {
   --note-color: var(--color-normal);
 }
+
 .recurring {
   --note-color: var(--color-recurring);
 }
 
 @media (prefers-color-scheme: light) {
   body {
-    background-color: var(--color-accent);
-    color: var(--color-bg);
+    background-color: var(--bg-light-primary);
+    color: var(--text-light-primary);
   }
 }

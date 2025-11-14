@@ -1,3 +1,4 @@
+import { api } from "../../../api";
 import type { User } from "../../notes/types";
 
 export default async function login(
@@ -5,21 +6,19 @@ export default async function login(
   pass: string,
 ): Promise<User | string> {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_AUTH}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, pass }),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
+    // El endpoint del backend es /api/auth/login (POST)
+    const data = await api.post("/api/auth/login", { email, pass });
+    // El backend responde con el usuario o un mensaje
+    if (data && data.user && data.user.id) {
       return data.user as User;
     }
+    if (data && data.id) {
+      // Si la respuesta directa es el usuario
+      return data as User;
+    }
+    return data.message || "Login fallido";
   } catch (error) {
-    console.error("Error during login:", error);
-    return "Login failed";
+    console.error("Error durante login:", error);
+    return "Login fallido";
   }
-  return "Login failed";
 }

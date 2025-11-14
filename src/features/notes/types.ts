@@ -18,8 +18,9 @@ export interface Note {
 
 export interface event {
   message: string;
-  type: "urgent" | "normal" | "recurring";
+  typeEvent: "urgent" | "normal" | "recurring";
   remember: boolean;
+  userId: string | number;
 }
 
 export const priorityOrder = {
