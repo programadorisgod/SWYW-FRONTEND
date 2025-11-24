@@ -9,7 +9,6 @@ import { EventCheckIcon } from "../icons/EventCheck";
 import "./NewNote.css";
 import { EventIcon } from "../icons/Event";
 import { v4 as uuidv4 } from "uuid";
-import { Loader } from "../Loader/Loader";
 
 interface HandleModalProps {
   note?: Note;
@@ -197,7 +196,7 @@ export function NewNote({
               disabled={isLoading || !newNote.title || !newNote.description}
             >
               {isLoading ? (
-                <Loader size="sm" variant="spinner" />
+                <span>{mode === "edit" ? "Editando..." : "Creando..."}</span>
               ) : (
                 <>
                   {formIcon}
